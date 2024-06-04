@@ -77,7 +77,7 @@ const HomeScreen = () => {
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Books</h1>
-        <Link to="book/add/">
+        <Link to="/add-book/">
           <button className="bg-green-500 text-white p-2 rounded-full">
             <PlusIcon className="h-5 w-5" />
           </button>

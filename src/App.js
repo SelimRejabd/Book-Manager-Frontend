@@ -9,7 +9,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomeScreen />} />
-        <Route path="book/add" element={<AddBookForm />} />
+        <Route path="/add-book" element={<AddBookForm />} />
         <Route path="edit/:id" element={<EditBookForm />} />
       </Routes>
     </Router>
