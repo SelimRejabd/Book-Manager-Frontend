@@ -15,7 +15,7 @@ export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
 });
 
 export const addBook = createAsyncThunk('books/addBook', async (formData) => {
-  const response = await axios.post(`books/add/`, formData, {
+  const response = await axios.post('/books/add/', formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
