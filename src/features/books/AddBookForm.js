@@ -32,10 +32,11 @@ const AddBookForm = () => {
 
   return (
     <div>
-      <Link to="/" className="inline-flex px-4 py-2 ml-5 mt-5 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
+      <Link to="/" className="inline-flex items-center px-4 py-2 ml-5 mt-5 text-white rounded bg-blue-500 hover:bg-blue-700">
         <i className="fas fa-arrow-left"> </i>
         Go Back
       </Link>
+      
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md">
         <div className="mb-4">
           <label

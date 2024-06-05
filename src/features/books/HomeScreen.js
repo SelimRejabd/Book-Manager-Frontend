@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchBooks, deleteBook, clearMessages } from "./BookSlice";
 import { PencilAltIcon, TrashIcon, PlusIcon } from "@heroicons/react/solid";
-import EditBookForm from "./EditBookForm";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -11,8 +10,6 @@ const HomeScreen = () => {
   const bookStatus = useSelector((state) => state.books.status);
   const error = useSelector((state) => state.books.error);
   const successMessage = useSelector((state) => state.books.successMessage);
-  const [showEditForm, setShowEditForm] = useState(false);
-  const [currentBook, setCurrentBook] = useState(null);
 
   useEffect(() => {
     if (bookStatus === "idle") {
@@ -33,11 +30,6 @@ const HomeScreen = () => {
     }
   };
 
-  const handleEdit = (book) => {
-    setCurrentBook(book);
-    setShowEditForm(true);
-  };
-
   let content;
 
   if (bookStatus === "loading") {
@@ -54,12 +46,11 @@ const HomeScreen = () => {
         <p className="text-gray-600">{book.author}</p>
         <p className="text-gray-600">{book.isbn}</p>
         <div className="flex justify-between mt-4">
-          <button
-            onClick={() => handleEdit(book)}
-            className="bg-blue-500 text-white p-2 rounded-full"
-          >
-            <PencilAltIcon className="h-5 w-5" />
-          </button>
+          <Link to={`/edit/${book.id}`}>
+            <button className="bg-blue-500 text-white p-2 rounded-full">
+              <PencilAltIcon className="h-5 w-5" />
+            </button>
+          </Link>
           <button
             onClick={() => handleDelete(book.id)}
             className="bg-red-500 text-white p-2 rounded-full"
@@ -83,7 +74,6 @@ const HomeScreen = () => {
           </button>
         </Link>
       </div>
-      {showEditForm && currentBook && <EditBookForm book={currentBook} />}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">{content}</div>
     </div>
   );

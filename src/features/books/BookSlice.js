@@ -10,7 +10,12 @@ const initialState = {
 };
 
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
-  const response = await axios.get(`books/`);
+  const response = await axios.get(`/books/`);
+  return response.data;
+});
+
+export const fetchBook = createAsyncThunk('books/fetchBook', async (id) => {
+  const response = await axios.get(`/books/${id}`);
   return response.data;
 });
 
@@ -24,7 +29,7 @@ export const addBook = createAsyncThunk('books/addBook', async (formData) => {
 });
 
 export const updateBook = createAsyncThunk('books/updateBook', async ({ id, formData }) => {
-  const response = await axios.put(`books/update/${id}/`, formData, {
+  const response = await axios.put(`/books/update/${id}/`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
@@ -33,7 +38,7 @@ export const updateBook = createAsyncThunk('books/updateBook', async ({ id, form
 });
 
 export const deleteBook = createAsyncThunk('books/deleteBook', async (id) => {
-  await axios.delete(`books/delete/${id}/`);
+  await axios.delete(`/books/delete/${id}/`);
   return id;
 });
 
@@ -56,6 +61,17 @@ const booksSlice = createSlice({
         state.books = action.payload;
       })
       .addCase(fetchBooks.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(fetchBook.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchBook.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.books = action.payload;
+      })
+      .addCase(fetchBook.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       })
